@@ -7,7 +7,8 @@ import { useMediaQuery } from '@mui/material';
 const PaginationComponent = () => {
     const context=useContext(ArtContext)
     const handleChange=(event:React.ChangeEvent<unknown>,value:number)=>{
-        context?.setPage(prevPage=>value)
+        console.log(event)
+        context?.setPage(prevPage=>prevPage=value)
     }
     const isSmallScreen = useMediaQuery('(max-width: 460px)');
 
@@ -35,7 +36,7 @@ const PaginationComponent = () => {
         
       }}   
        onChange={handleChange}
-       size={isSmallScreen ? 'small' : 'large'}  // Conditionally change the size
+       size={isSmallScreen ? 'small' : 'large'}  
        
        
 

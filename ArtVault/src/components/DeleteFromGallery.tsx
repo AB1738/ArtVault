@@ -12,7 +12,7 @@ const DeleteFromGallery = ({artId}:idPropType) => {
 
     const handleDelete=async()=>{
         try{
-        const response=await fetch(`http://localhost:3000/api/art/${artId}`,{
+        const response=await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/art/${artId}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json'
@@ -48,7 +48,6 @@ const DeleteFromGallery = ({artId}:idPropType) => {
             progress: undefined,
             theme: "light",
                 })
-            // window.location.reload()
         }
         }
     }catch(e){

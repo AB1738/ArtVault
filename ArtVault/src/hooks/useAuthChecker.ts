@@ -11,7 +11,7 @@ import { userObjectStructure } from "../contexts/UserContext"
   
   const useAuthChecker=async(signal:AbortSignal|undefined)=>{
     try{
-        const checkAuth=await fetch('http://localhost:3000/api/users/isAuthenticated',{
+        const checkAuth=await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/isAuthenticated`,{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

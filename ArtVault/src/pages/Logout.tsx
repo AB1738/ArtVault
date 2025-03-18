@@ -13,7 +13,7 @@ const Logout = () => {
         const signal = controller.signal;
         const logout=async()=>{
             try{                            
-                const response=await fetch('http://localhost:3000/api/users/logout',{
+                const response=await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/logout`,{
                     method: 'GET',
                     headers: {
                       'Content-Type': 'application/json',
@@ -43,16 +43,6 @@ const Logout = () => {
 
             }catch(e:any)
             {
-                // toast.error(e.message, {
-                //     position: "top-right",
-                //     autoClose: 5000,
-                //     hideProgressBar: false,
-                //     closeOnClick: false,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     progress: undefined,
-                //     theme: "light",
-                //     })
                 console.error(e)
             }
         }

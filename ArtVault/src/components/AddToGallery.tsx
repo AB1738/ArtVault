@@ -17,7 +17,7 @@ const AddToGallery = ({art}:artPropType) => {
         try{
 
         
-        const response=await fetch(`http://localhost:3000/api/art/${art.id}`,{
+        const response=await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/art/${art.id}`,{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -23,7 +23,7 @@ const UserForm = ({type}:UserFormPropType) => {
     if(emailText!==''&&passwordText!==''){
     const sendToServer=async(emailText:string,passwordText:string)=>{
       try{
-        const response=await fetch(`http://localhost:3000/api/users/${type}`,{
+        const response=await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${type}`,{
           method:'POST',
           headers: {
             'Content-Type': 'application/json',  
