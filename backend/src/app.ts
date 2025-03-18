@@ -16,9 +16,14 @@ const URI=process.env.MONGO_URI
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
-    origin:'*', 
+  origin: process.env.CLIENT_URL, 
   credentials: true, 
 }))
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Credentials','true');
+    next()
+})
+
 
   
 app.use('/api/art',ArtRoutes)
