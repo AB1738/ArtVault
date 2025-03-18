@@ -16,7 +16,7 @@ const URI=process.env.MONGO_URI
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
-  origin: process.env.CLIENT_URL, 
+    origin:'*', 
   credentials: true, 
 }))
 
