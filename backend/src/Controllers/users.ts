@@ -54,7 +54,8 @@ export const loginUser=async(req:Request,res:Response)=>{
         console.log(foundUser)
         res.cookie('authToken', token, {
             httpOnly: true,  
-            secure: process.env.NODE_ENV === 'production', 
+            secure: true, 
+            sameSite: 'none',
             maxAge: 604800000  
           });
         //   Before you send the user object the the client, remove unneccesary fields and POPULATE the art field if its not empty
@@ -83,7 +84,11 @@ export const logOut=async(req:Request,res:Response)=>{
       const user:UserType|null=await User.findById(decodedToken.id)
         if(user){
             console.log('cookie should be cleared')
-            res.clearCookie('authToken').json({message:'Goodbye! Come back soon!'})
+            res.clearCookie('authToken', {
+                httpOnly: true,  
+                secure: true, 
+                sameSite: 'none',
+              }).json({message:'Goodbye! Come back soon!'})
 
         }else{
             throw new Error('Invalid authorization token')

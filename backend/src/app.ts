@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import ArtRoutes from './Routes/art'
 import UserRoutes from './Routes/users'
-const app:Express=express()
+export const app:Express=express()
 
 
 dotenv.config()
@@ -23,7 +23,7 @@ app.use((req,res,next)=>{
     const origin = req.headers.origin; 
     
     if (origin&& origin === process.env.CLIENT_URL) {
-        res.setHeader('Access-Control-Allow-Origin', origin);  
+        res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);  
       }
     
   

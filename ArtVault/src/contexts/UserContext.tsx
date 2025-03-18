@@ -52,10 +52,7 @@ const UserContextProvider=({children}:{children:React.ReactNode})=>{
           }
         }
         checkAuthOnMount()
-        return () => {
-            controller.abort()
-          }
-      
+   
       },[])
 
 
