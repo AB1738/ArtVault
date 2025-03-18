@@ -8,7 +8,12 @@ const PaginationComponent = () => {
     const context=useContext(ArtContext)
     const handleChange=(event:React.ChangeEvent<unknown>,value:number)=>{
         console.log(event)
-        context?.setPage(prevPage=>prevPage=value)
+        context?.setPage(prevPage=>{
+            if(prevPage){
+                console.log(prevPage)
+            }
+          return  value}
+        )
     }
     const isSmallScreen = useMediaQuery('(max-width: 460px)');
 
