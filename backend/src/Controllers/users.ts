@@ -23,13 +23,16 @@ export const registerUser=async(req:Request,res:Response)=>{
         const newUser=await new User({email,password:hashedPassword})
         await newUser.save()
         const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET as string)
-        res.cookie('authToken', token, {
-            httpOnly: true,  
-            secure: process.env.NODE_ENV === 'production', 
-            maxAge: 3600000  
-          });
 
-        res.status(201).json({message:`Account successfully created`,User:newUser})
+        // CHANGE HERE
+
+        // res.cookie('authToken', token, {
+        //     httpOnly: true,  
+        //     secure: process.env.NODE_ENV === 'production', 
+        //     maxAge: 3600000  
+        //   });
+
+        res.status(201).json({message:`Account successfully created`,User:newUser,authToken:token})
     }catch(e:any){
         res.status(409).json({message:e.message})
     }
@@ -52,15 +55,20 @@ export const loginUser=async(req:Request,res:Response)=>{
 
         console.log(token)
         console.log(foundUser)
-        res.cookie('authToken', token, {
-            httpOnly: true,  
-            secure: true, 
-            sameSite: 'none',
-            maxAge: 604800000  
-          });
+
+
+        // CHANGE HERE
+
+
+        // res.cookie('authToken', token, {
+        //     httpOnly: true,  
+        //     secure: true, 
+        //     sameSite: 'none',
+        //     maxAge: 604800000  
+        //   });
         //   Before you send the user object the the client, remove unneccesary fields and POPULATE the art field if its not empty
 
-        res.status(200).json({message:'Welcome Back!',User:foundUser})
+        res.status(200).json({message:'Welcome Back!',User:foundUser,authToken:token})
        }else{
         res.status(401).json({message:'Invalid credentials'})
        }
@@ -73,32 +81,33 @@ export const checkAuth=async(req:Request,res:Response)=>{
     res.status(200).json({message:'request received'})
 }
 
-export const logOut=async(req:Request,res:Response)=>{
-    try{
-    const {authToken}=req.cookies
-    if(!authToken){
-        throw new Error('Missing authorization token')
-    }
-    const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET as string)
-    if(typeof decodedToken === 'object' && decodedToken !== null){
-      const user:UserType|null=await User.findById(decodedToken.id)
-        if(user){
-            console.log('cookie should be cleared')
-            res.clearCookie('authToken', {
-                httpOnly: true,  
-                secure: true, 
-                sameSite: 'none',
-              }).json({message:'Goodbye! Come back soon!'})
+// export const logOut=async(req:Request,res:Response)=>{
+//     try{
+//     const {authToken}=req.cookies
+//     if(!authToken){
+//         throw new Error('Missing authorization token')
+//     }
+//     const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET as string)
+//     if(typeof decodedToken === 'object' && decodedToken !== null){
+//       const user:UserType|null=await User.findById(decodedToken.id)
+//         if(user){
+//             console.log('cookie should be cleared')
+//             // res.clearCookie('authToken', {
+//             //     httpOnly: true,  
+//             //     secure: true, 
+//             //     sameSite: 'none',
+//             //   })
+//             res.json({message:'Goodbye! Come back soon!'})
 
-        }else{
-            throw new Error('Invalid authorization token')
-        }
-    }
+//         }else{
+//             throw new Error('Invalid authorization token')
+//         }
+//     }
 
-}
-    catch(e:any){
-        res.status(400).json({message:e.message})
-    }
-}
+// }
+//     catch(e:any){
+//         res.status(400).json({message:e.message})
+//     }
+// }
 
 

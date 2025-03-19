@@ -95,7 +95,18 @@ const Gallery = () => {
 
         </>
     ):(
-        <Navigate to='/login'/>
+      <div className="loader-container gallery-loader" style={{height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
+      <HashLoader 
+      color='#7c444f'
+      cssOverride={override}
+      size={150}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+
+      />
+              <Navigate to='/login'/>
+
+      </div>
     )
         )}
 

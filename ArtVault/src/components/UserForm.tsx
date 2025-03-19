@@ -38,8 +38,11 @@ const UserForm = ({type}:UserFormPropType) => {
         }
       else if(response.ok){
           
-        
         const data=await response.json()
+        if(data.authToken){
+          localStorage.setItem('authToken',data.authToken)
+        }
+        // console.log(data.authToken)
         toast.success(data.message, {
           position: "top-right",
           autoClose: 5000,
